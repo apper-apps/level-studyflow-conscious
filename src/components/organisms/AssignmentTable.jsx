@@ -60,15 +60,16 @@ if (assignment.status_c === "completed") return "completed"
                     </div>
                   </td>
                   <td className="px-6 py-4">
-<div className="flex items-center space-x-2">
-{course && (
-                    <div 
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: course.color_c || course.color || "#4F46E5" }}
-                    />
-                  )}
+{course ? (
+                <div className="flex items-center space-x-2">
+                  <div 
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: course.color_c || course.color || "#4F46E5" }}
+                  />
                   <span className="text-sm font-medium text-gray-900">{course?.name_c || course?.Name}</span>
                 </div>
+              ) : (
+                <span className="text-sm text-gray-500">No course</span>
               )}
                 </td>
                   <td className="px-6 py-4">
