@@ -61,15 +61,15 @@ if (assignment.status_c === "completed") return "completed"
                   </td>
                   <td className="px-6 py-4">
 <div className="flex items-center space-x-2">
-                      {course && (
-                        <div 
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: course.color_c || course.color || "#4F46E5" }}
-                        />
-                      )}
-                      <span className="text-sm font-medium text-gray-900">{course?.name_c || course?.Name}</span>
-                    </div>
+{course && (
+                    <div 
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: course.color_c || course.color || "#4F46E5" }}
+                    />
                   )}
+                  <span className="text-sm font-medium text-gray-900">{course?.name_c || course?.Name}</span>
+                </div>
+              )}
                 </td>
                   <td className="px-6 py-4">
 <span className={`text-sm ${isOverdue(assignment.due_date_c) && assignment.status_c !== "completed" ? "text-red-600 font-medium" : "text-gray-600"}`}>
