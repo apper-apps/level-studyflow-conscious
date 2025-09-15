@@ -131,8 +131,8 @@ const QuickAddModal = ({ isOpen, onClose }) => {
           >
             <option value="">Select a course</option>
             {courses.map(course => (
-              <option key={course.Id} value={course.Id}>
-                {course.name}
+<option key={course.Id} value={course.Id}>
+                {course.name_c || course.Name}
               </option>
             ))}
           </FormField>

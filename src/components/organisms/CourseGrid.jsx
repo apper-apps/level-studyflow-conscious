@@ -1,9 +1,9 @@
-import React from "react"
-import Card from "@/components/atoms/Card"
-import Badge from "@/components/atoms/Badge"
-import Progress from "@/components/atoms/Progress"
-import ApperIcon from "@/components/ApperIcon"
-import { calculateCourseGrade, gradeToLetter } from "@/utils/gradeUtils"
+import React from "react";
+import { calculateCourseGrade, gradeToLetter } from "@/utils/gradeUtils";
+import ApperIcon from "@/components/ApperIcon";
+import Progress from "@/components/atoms/Progress";
+import Card from "@/components/atoms/Card";
+import Badge from "@/components/atoms/Badge";
 
 const CourseGrid = ({ courses, onCourseClick }) => {
   return (
@@ -14,22 +14,22 @@ const CourseGrid = ({ courses, onCourseClick }) => {
         
         return (
           <Card
-            key={course.Id}
+key={course.Id}
             className="p-6 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
-            onClick={() => onCourseClick?.(course)}
+            onClick={() => onCourseClick && onCourseClick(course)}
             hover
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center space-x-3">
                 <div 
                   className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold"
-                  style={{ backgroundColor: course.color }}
+                  style={{ backgroundColor: course.color_c || course.color || "#4F46E5" }}
                 >
                   <ApperIcon name="BookOpen" className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 display-font">{course.name}</h3>
-                  <p className="text-sm text-gray-500">{course.code}</p>
+                  <h3 className="font-semibold text-gray-900 display-font">{course.name_c || course.Name}</h3>
+                  <p className="text-sm text-gray-500">{course.code_c}</p>
                 </div>
               </div>
               <Badge variant={currentGrade >= 90 ? "success" : currentGrade >= 80 ? "primary" : currentGrade >= 70 ? "warning" : "error"}>
@@ -37,23 +37,21 @@ const CourseGrid = ({ courses, onCourseClick }) => {
               </Badge>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center text-sm text-gray-600">
+            <div className="space-y-2 text-sm text-gray-600 mb-4">
+              <div className="flex items-center">
                 <ApperIcon name="User" className="h-4 w-4 mr-2" />
-                {course.professor}
+                {course.professor_c}
               </div>
-              
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center">
                 <ApperIcon name="Clock" className="h-4 w-4 mr-2" />
-                {course.schedule}
+                {course.schedule_c}
               </div>
-
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center">
                 <ApperIcon name="Calendar" className="h-4 w-4 mr-2" />
-                {course.semester} • {course.credits} credits
+                {course.semester_c} • {course.credits_c} credits
+{course.semester_c} • {course.credits_c} credits
               </div>
             </div>
-
             {currentGrade && (
               <div className="mt-4">
                 <div className="flex justify-between items-center mb-2">

@@ -1,6 +1,6 @@
 import { toast } from "react-toastify"
 
-export const courseService = {
+export const gradeService = {
   async getAll() {
     try {
       const { ApperClient } = window.ApperSDK
@@ -13,17 +13,13 @@ export const courseService = {
         fields: [
           { field: { Name: "Name" } },
           { field: { Name: "Tags" } },
+          { field: { Name: "score_c" } },
           { field: { Name: "name_c" } },
-          { field: { Name: "code_c" } },
-          { field: { Name: "professor_c" } },
-          { field: { Name: "schedule_c" } },
-          { field: { Name: "color_c" } },
-          { field: { Name: "semester_c" } },
-          { field: { Name: "credits_c" } }
+          { field: { name: "grade_category_id_c" }, referenceField: { field: { Name: "Name" } } }
         ]
       }
       
-      const response = await apperClient.fetchRecords("course_c", params)
+      const response = await apperClient.fetchRecords("grade_c", params)
       
       if (!response.success) {
         console.error(response.message)
@@ -34,7 +30,7 @@ export const courseService = {
       return response.data || []
     } catch (error) {
       if (error?.response?.data?.message) {
-        console.error("Error fetching courses:", error?.response?.data?.message)
+        console.error("Error fetching grades:", error?.response?.data?.message)
       } else {
         console.error(error)
       }
@@ -54,17 +50,13 @@ export const courseService = {
         fields: [
           { field: { Name: "Name" } },
           { field: { Name: "Tags" } },
+          { field: { Name: "score_c" } },
           { field: { Name: "name_c" } },
-          { field: { Name: "code_c" } },
-          { field: { Name: "professor_c" } },
-          { field: { Name: "schedule_c" } },
-          { field: { Name: "color_c" } },
-          { field: { Name: "semester_c" } },
-          { field: { Name: "credits_c" } }
+          { field: { name: "grade_category_id_c" }, referenceField: { field: { Name: "Name" } } }
         ]
       }
       
-      const response = await apperClient.getRecordById("course_c", parseInt(id), params)
+      const response = await apperClient.getRecordById("grade_c", parseInt(id), params)
       
       if (!response.success) {
         console.error(response.message)
@@ -75,7 +67,7 @@ export const courseService = {
       return response.data
     } catch (error) {
       if (error?.response?.data?.message) {
-        console.error(`Error fetching course with ID ${id}:`, error?.response?.data?.message)
+        console.error(`Error fetching grade with ID ${id}:`, error?.response?.data?.message)
       } else {
         console.error(error)
       }
@@ -83,7 +75,7 @@ export const courseService = {
     }
   },
 
-  async create(courseData) {
+  async create(gradeData) {
     try {
       const { ApperClient } = window.ApperSDK
       const apperClient = new ApperClient({
@@ -94,19 +86,15 @@ export const courseService = {
       // Only include Updateable fields
       const params = {
         records: [{
-          Name: courseData.Name || courseData.name_c,
-          Tags: courseData.Tags || "",
-          name_c: courseData.name_c || courseData.Name,
-          code_c: courseData.code_c,
-          professor_c: courseData.professor_c,
-          schedule_c: courseData.schedule_c,
-          color_c: courseData.color_c,
-          semester_c: courseData.semester_c,
-          credits_c: parseInt(courseData.credits_c) || 0
+          Name: gradeData.Name || gradeData.name_c,
+          Tags: gradeData.Tags || "",
+          score_c: parseInt(gradeData.score_c) || 0,
+          name_c: gradeData.name_c || gradeData.Name,
+          grade_category_id_c: gradeData.grade_category_id_c?.Id || parseInt(gradeData.grade_category_id_c) || null
         }]
       }
       
-      const response = await apperClient.createRecord("course_c", params)
+      const response = await apperClient.createRecord("grade_c", params)
       
       if (!response.success) {
         console.error(response.message)
@@ -119,7 +107,7 @@ export const courseService = {
         const failedRecords = response.results.filter(result => !result.success)
         
         if (failedRecords.length > 0) {
-          console.error(`Failed to create course ${failedRecords.length} records:${JSON.stringify(failedRecords)}`)
+          console.error(`Failed to create grade ${failedRecords.length} records:${JSON.stringify(failedRecords)}`)
           
           failedRecords.forEach(record => {
             record.errors?.forEach(error => {
@@ -135,7 +123,7 @@ export const courseService = {
       return null
     } catch (error) {
       if (error?.response?.data?.message) {
-        console.error("Error creating course:", error?.response?.data?.message)
+        console.error("Error creating grade:", error?.response?.data?.message)
       } else {
         console.error(error)
       }
@@ -158,19 +146,15 @@ export const courseService = {
       
       if (updates.Name !== undefined) updateData.Name = updates.Name
       if (updates.Tags !== undefined) updateData.Tags = updates.Tags
+      if (updates.score_c !== undefined) updateData.score_c = parseInt(updates.score_c) || 0
       if (updates.name_c !== undefined) updateData.name_c = updates.name_c
-      if (updates.code_c !== undefined) updateData.code_c = updates.code_c
-      if (updates.professor_c !== undefined) updateData.professor_c = updates.professor_c
-      if (updates.schedule_c !== undefined) updateData.schedule_c = updates.schedule_c
-      if (updates.color_c !== undefined) updateData.color_c = updates.color_c
-      if (updates.semester_c !== undefined) updateData.semester_c = updates.semester_c
-      if (updates.credits_c !== undefined) updateData.credits_c = parseInt(updates.credits_c) || 0
+      if (updates.grade_category_id_c !== undefined) updateData.grade_category_id_c = updates.grade_category_id_c?.Id || parseInt(updates.grade_category_id_c) || null
       
       const params = {
         records: [updateData]
       }
       
-      const response = await apperClient.updateRecord("course_c", params)
+      const response = await apperClient.updateRecord("grade_c", params)
       
       if (!response.success) {
         console.error(response.message)
@@ -183,7 +167,7 @@ export const courseService = {
         const failedUpdates = response.results.filter(result => !result.success)
         
         if (failedUpdates.length > 0) {
-          console.error(`Failed to update course ${failedUpdates.length} records:${JSON.stringify(failedUpdates)}`)
+          console.error(`Failed to update grade ${failedUpdates.length} records:${JSON.stringify(failedUpdates)}`)
           
           failedUpdates.forEach(record => {
             record.errors?.forEach(error => {
@@ -199,7 +183,7 @@ export const courseService = {
       return null
     } catch (error) {
       if (error?.response?.data?.message) {
-        console.error("Error updating course:", error?.response?.data?.message)
+        console.error("Error updating grade:", error?.response?.data?.message)
       } else {
         console.error(error)
       }
@@ -219,7 +203,7 @@ export const courseService = {
         RecordIds: [parseInt(id)]
       }
       
-      const response = await apperClient.deleteRecord("course_c", params)
+      const response = await apperClient.deleteRecord("grade_c", params)
       
       if (!response.success) {
         console.error(response.message)
@@ -232,7 +216,7 @@ export const courseService = {
         const failedDeletions = response.results.filter(result => !result.success)
         
         if (failedDeletions.length > 0) {
-          console.error(`Failed to delete course ${failedDeletions.length} records:${JSON.stringify(failedDeletions)}`)
+          console.error(`Failed to delete grade ${failedDeletions.length} records:${JSON.stringify(failedDeletions)}`)
           
           failedDeletions.forEach(record => {
             if (record.message) toast.error(record.message)
@@ -245,7 +229,7 @@ export const courseService = {
       return false
     } catch (error) {
       if (error?.response?.data?.message) {
-        console.error("Error deleting course:", error?.response?.data?.message)
+        console.error("Error deleting grade:", error?.response?.data?.message)
       } else {
         console.error(error)
       }

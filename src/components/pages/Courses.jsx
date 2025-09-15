@@ -21,11 +21,11 @@ const Courses = () => {
   }, [])
 
   useEffect(() => {
-    // Filter courses based on search term
+// Filter courses based on search term
     const filtered = courses.filter(course =>
-      course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.professor.toLowerCase().includes(searchTerm.toLowerCase())
+      (course.name_c || course.Name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (course.code_c || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (course.professor_c || "").toLowerCase().includes(searchTerm.toLowerCase())
     )
     setFilteredCourses(filtered)
   }, [courses, searchTerm])
@@ -112,7 +112,7 @@ const Courses = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Total Credits</p>
-              <p className="text-2xl font-bold text-gray-900">{courses.reduce((sum, course) => sum + course.credits, 0)}</p>
+<p className="text-2xl font-bold text-gray-900">{courses.reduce((sum, course) => sum + (course.credits_c || 0), 0)}</p>
             </div>
             <ApperIcon name="Award" className="h-8 w-8 text-accent" />
           </div>

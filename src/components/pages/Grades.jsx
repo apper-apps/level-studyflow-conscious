@@ -92,8 +92,8 @@ const Grades = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Total Credits</p>
-              <p className="text-4xl font-bold text-gray-900 mt-1 display-font">
-                {courses.reduce((sum, course) => sum + course.credits, 0)}
+<p className="text-4xl font-bold text-gray-900 mt-1 display-font">
+                {courses.reduce((sum, course) => sum + (course.credits_c || 0), 0)}
               </p>
               <p className="text-sm text-gray-500 mt-1">Current semester</p>
             </div>
@@ -126,18 +126,18 @@ const Grades = () => {
           const letterGrade = currentGrade ? gradeToLetter(currentGrade) : "N/A"
           
           return (
-            <Card key={course.Id} className="p-6" hover>
+<Card key={course.Id} className="p-6" hover>
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div 
                     className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold"
-                    style={{ backgroundColor: course.color }}
+                    style={{ backgroundColor: course.color_c || course.color || "#4F46E5" }}
                   >
                     <ApperIcon name="BookOpen" className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 display-font">{course.name}</h3>
-                    <p className="text-sm text-gray-500">{course.code} • {course.credits} credits</p>
+                    <h3 className="font-semibold text-gray-900 display-font">{course.name_c || course.Name}</h3>
+                    <p className="text-sm text-gray-500">{course.code_c} • {course.credits_c} credits</p>
                   </div>
                 </div>
                 <Badge variant={currentGrade >= 90 ? "success" : currentGrade >= 80 ? "primary" : currentGrade >= 70 ? "warning" : "error"}>
@@ -215,15 +215,15 @@ const Grades = () => {
             const gpaPoints = currentGrade ? (currentGrade / 100) * 4 : 0
             
             return (
-              <div key={course.Id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
+<div key={course.Id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <div 
                     className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: course.color }}
+                    style={{ backgroundColor: course.color_c || course.color || "#4F46E5" }}
                   />
                   <div>
-                    <p className="font-medium text-gray-900">{course.name}</p>
-                    <p className="text-sm text-gray-500">{course.credits} credits</p>
+                    <p className="font-medium text-gray-900">{course.name_c || course.Name}</p>
+                    <p className="text-sm text-gray-500">{course.credits_c} credits</p>
                   </div>
                 </div>
                 <div className="text-right">

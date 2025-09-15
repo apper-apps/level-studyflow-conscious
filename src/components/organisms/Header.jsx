@@ -24,10 +24,23 @@ const Header = ({ onMenuClick }) => {
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
+<div className="flex items-center space-x-3">
           <div className="hidden md:block">
             <p className="text-sm text-gray-600">Welcome back!</p>
           </div>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const { logout } = require('../../App').AuthContext
+              if (logout) logout()
+            }}
+            className="mr-3"
+          >
+            <ApperIcon name="LogOut" className="h-4 w-4 mr-1" />
+            Logout
+          </Button>
           
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-secondary flex items-center justify-center">
             <ApperIcon name="User" className="h-4 w-4 text-white" />
