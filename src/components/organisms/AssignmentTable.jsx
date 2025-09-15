@@ -60,7 +60,7 @@ if (assignment.status_c === "completed") return "completed"
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center space-x-2">
+<div className="flex items-center space-x-2">
                       {course && (
                         <div 
                           className="w-3 h-3 rounded-full"
@@ -68,9 +68,9 @@ if (assignment.status_c === "completed") return "completed"
                         />
                       )}
                       <span className="text-sm font-medium text-gray-900">{course?.name_c || course?.Name}</span>
-                      </div>
-                    )}
-                  </td>
+                    </div>
+                  )}
+                </td>
                   <td className="px-6 py-4">
 <span className={`text-sm ${isOverdue(assignment.due_date_c) && assignment.status_c !== "completed" ? "text-red-600 font-medium" : "text-gray-600"}`}>
                       {formatDate(assignment.due_date_c)}
